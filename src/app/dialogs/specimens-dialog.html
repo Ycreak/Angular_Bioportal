@@ -1,0 +1,195 @@
+<!-- Template for a table row -->
+<ng-template #table_row let-title="title" let-data="data">  
+  <tr>
+    <td>
+      {{ title }}
+    </td>          
+    <td>
+      {{ data }}
+    </td>
+  </tr>
+</ng-template>
+
+<!-- This dialog is used to change system settings. It receives an oscc_settings object called data,
+  which can be changed using the toggles defined below. -->
+<div class="dialog-content" mat-dialog-content>
+  <!-- <br> -->
+    
+
+
+
+
+
+    <h2>Specimen item</h2>
+    
+    <b>{{ data.item.sourceSystem.name }}</b>
+
+    <hr>
+    
+    <table>
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Scientific name', 
+          data: data.item.identifications[0].scientificName.fullScientificName
+        }">
+      </ng-container>
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Vernaculars', 
+          data: ''
+        }">
+      </ng-container>
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Vernaculars from associated taxon', 
+          data: ''
+        }">
+      </ng-container>      
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Registration number', 
+          data: data.item.sourceSystemId
+        }">
+      </ng-container>  
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Source', 
+          data: data.item.sourceInstitutionID
+        }">
+      </ng-container>   
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'License', 
+          data: data.item.license
+        }">
+      </ng-container>         
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Institution', 
+          data: data.item.owner
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Collection name', 
+          data: data.item.collectionType
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Basis of record', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Type status', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Phase or stage', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Sex', 
+          data: ''
+        }">
+      </ng-container>    
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Part', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Preparation method', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Number of specimens', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Date', 
+          data: ''
+        }">
+      </ng-container> 
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Collector', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Locality', 
+          data: ''
+        }">
+      </ng-container> 
+
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Site coordinates', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Collectors field number', 
+          data: ''
+        }">
+      </ng-container> 
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Modified', 
+          data: ''
+        }">
+      </ng-container>   
+      
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'PreviousUnitsText', 
+          data: ''
+        }">
+      </ng-container>       
+
+    </table>
+
+    <hr>
+
+    <p style="font-size:1.5em">Feedback</p>
+    <p>Please report inaccuracies or errors for this specimen to <a href="mailto:collectie@naturalis.nl">collectie@naturalis.nl</a>.</p>
+
+    
+    
+</div>
+

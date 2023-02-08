@@ -1,0 +1,484 @@
+<!-- Import the stylesheet for the Material icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Navigation bar -->
+<mat-toolbar color="primary">
+    <span style="width: fit-content; transform: translateY(-1px)">
+        <h3 
+            class='navbar'>
+            Angular Bioportal
+        </h3>
+    </span>
+
+     <span class="spacer"></span>
+        
+     <button mat-stroked-button 
+            class="navbar" style="margin: 0.2em;"
+            (click)="this.change_language('nl')">
+                NL
+        </button>
+
+        <button mat-stroked-button 
+        class="navbar" style="margin: 0.2em;"
+        (click)="this.change_language('en')">
+            EN
+    </button>
+
+
+          
+     <button mat-stroked-button 
+            class="navbar" style="margin: 0.2em;"
+            (click)="this.test('0')">
+                TEST
+        </button>
+        
+    <button mat-stroked-button 
+        class="navbar" style="margin: 0.2em;"
+        [matMenuTriggerFor]="highlights">
+            {{'navbar.explore_highlights' | translate}}
+    </button>
+    
+    <button mat-stroked-button 
+        class="navbar" style="margin: 0.2em;"
+        [matMenuTriggerFor]="menu">
+            <mat-icon fontIcon="menu"></mat-icon>
+            {{'navbar.about' | translate}}
+
+    </button>
+
+
+</mat-toolbar>
+
+<!-- Navigation bar menu -->
+<mat-menu #menu="matMenu">
+    <button (click)="this.open_dialog({}, 'about')" mat-menu-item>{{'about.about' | translate}}</button>
+    <button (click)="this.open_dialog({}, 'whatsnew')" mat-menu-item>{{'about.whatsnew' | translate}}</button>
+    <button (click)="this.open_dialog({}, 'dashboard')" mat-menu-item>{{'about.dashboard' | translate}}</button>
+    <button (click)="this.open_dialog({}, 'downloads')" mat-menu-item>{{'about.downloads' | translate}}</button>
+    <button (click)="this.open_dialog({}, 'api')" mat-menu-item>{{'about.api' | translate}}</button>
+    <button (click)="this.open_dialog({}, 'contact')" mat-menu-item>{{'about.contact' | translate}}</button>
+</mat-menu>
+
+<mat-menu #highlights="matMenu">
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Beekbergerwoud Collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Cetaceans</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>En Tibi herbarium</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Extinct Birds</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Gabon collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Highlights</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Hoogmoed collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Image collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Kor en Bot</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Martin collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Meteorite collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Museum exhibition collection Naturalis</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Dubois collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Jongmans collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Lake Victoria Chichlid collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Mammoth Collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Siebold Collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>The Timor Collection</button>
+    <button (click)="this.open_dialog({}, 'temp')" mat-menu-item>Wickevoort Crommelin collection</button>
+</mat-menu>
+
+<div class="div-padding-lg"></div>
+
+<div style="padding:0.5em">
+    <div class="row">
+        <div class="col-sm-4">
+            <ng-container [ngTemplateOutlet]='bioportal_search'></ng-container>
+        </div>
+        <div class="col-sm-8">
+            <ng-container [ngTemplateOutlet]='search_result'></ng-container>
+        </div>
+    </div>
+</div>
+
+<ng-template #search_result>
+    <div style="padding:0.5em">
+        <h3>              
+            {{'search.search_results' | translate}}:
+        </h3>    
+        
+        <ng-container 
+            [ngTemplateOutlet]='multimedia_results'
+            *ngIf="this.search_in['multimedia']">
+        </ng-container>
+
+        <div style='clear:both'></div>
+        
+        <ng-container 
+            [ngTemplateOutlet]='specimens_results'
+            *ngIf="this.search_in['specimens']">
+        </ng-container>
+
+        <ng-container 
+            [ngTemplateOutlet]='taxa_results'
+            *ngIf="this.search_in['taxa']">
+        </ng-container>
+
+    </div>
+</ng-template>
+
+<!-- Template for multimedia results -->
+<ng-template #specimens_results>
+    <h4>Specimens ({{ this.data.specimens.totalSize }})</h4>
+    <div style='padding-left:1em' *ngIf="this.spinners['specimens']"><mat-spinner></mat-spinner></div>
+    <table>
+        <tr>
+            <th>Specimen</th>
+            <th>Species</th>
+            <th>Found in</th>
+        </tr>
+        
+        <tr 
+            *ngFor="let animal of this.data.specimens.resultSet"
+            (click)="this.open_dialog(animal, 'specimens')">
+            <td>
+                {{ animal.item.sourceSystemId }}
+            </td>          
+            <td>
+                <ng-container *ngFor="let identification of animal.item.identifications">
+                    {{ identification.scientificName.fullScientificName }};
+                </ng-container>
+            </td>
+            <td>
+                {{ animal.item.sourceSystem.name }}
+            </td>
+        </tr>
+    </table>
+</ng-template>
+
+<!-- Template for multimedia results -->
+<ng-template #multimedia_results>
+    <ng-container>
+        <h4>Multimedia ({{ this.data.multimedia.totalSize }})</h4>
+        <div style='padding-left:1em' *ngIf="this.spinners['specimens']"><mat-spinner></mat-spinner></div>
+        <ng-container 
+            *ngFor="let animal of this.data.multimedia.resultSet">
+            
+            <div 
+                class="floating-box" 
+                (click)="this.open_dialog(animal, 'multimedia')">
+                <img src="{{ animal.item.serviceAccessPoints[0].accessUri }}" width="auto" height="128px">
+                <br>
+                {{ animal.item.sourceSystemId }}, 
+                <br>
+                {{ animal.item.identifications[0].scientificName.fullScientificName }}
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-template>
+
+<ng-template #taxa_results>
+    <h4>{{'taxa.species_names' | translate}} ({{ this.data.taxa.totalSize }}) <i>({{'taxa.matching' | translate}})</i></h4>
+    <div style='padding-left:1em' *ngIf="this.spinners['specimens']"><mat-spinner></mat-spinner></div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Found in</th>
+        </tr>
+        
+        <tr 
+            *ngFor="let taxon of this.data.taxa.resultSet"
+            (click)="this.open_dialog(taxon, 'taxa')">
+            <td>
+                {{ taxon.item.acceptedName.fullScientificName }};
+            </td>          
+            <td>
+                {{ taxon.item.taxonRank }}
+            </td>
+            <td>
+                {{ taxon.item.sourceSystem.name }}
+            </td>
+        </tr>
+    </table>
+</ng-template>
+
+
+<ng-template matches
+    #search_form_field
+    let-label="label" 
+    let-control_name="control_name">
+    <form [formGroup]="search_form">
+        <mat-form-field
+            class="raleway search_form" 
+            appearance="fill">
+            <mat-label>
+                {{label | translate}} ({{this.search_form_operator[control_name].toLowerCase()}})
+            </mat-label>
+            <input 
+                matInput 
+                formControlName={{control_name}}>
+            <button 
+                mat-icon-button 
+                matSuffix 
+                [matMenuTriggerFor]="operator_menu"
+                [matMenuTriggerData]="{field: control_name}">
+                <mat-icon>manage_search</mat-icon>
+            </button>
+        </mat-form-field>
+    </form>
+</ng-template>
+
+<mat-menu #operator_menu="matMenu">
+    <ng-template matMenuContent let-field="field">
+        <button (click)="this.set_form_field_operator(field, 'EQUALS')" mat-menu-item>{{'operators.equals' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'NOT_EQUALS')" mat-menu-item>{{'operators.not_equals' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'CONTAINS')" mat-menu-item>{{'operators.contains' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'NOT_CONTAINS')" mat-menu-item>{{'operators.not_contains' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'IN')" mat-menu-item>{{'operators.in' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'NOT_IN')" mat-menu-item>{{'operators.not_in' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'MATCHES')" mat-menu-item>{{'operators.matches' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'NOT_MATCHES')" mat-menu-item>{{'operators.not_matches' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'STARTS_WITH')" mat-menu-item>{{'operators.starts_with' | translate}}</button>
+        <button (click)="this.set_form_field_operator(field, 'NOT_STARTS_WITH')" mat-menu-item>{{'operators.not_starts_with' | translate}}</button>        
+    </ng-template>
+</mat-menu>
+
+
+<!-- Template for bioportal search area -->
+<ng-template #bioportal_search>
+    <form [formGroup]="search_form">
+        <mat-form-field
+            class="raleway" 
+            style="width:100%"
+            appearance="fill">
+            <mat-label>
+                {{'search.basic_term' | translate}}
+            </mat-label>
+            <input 
+                matInput 
+                formControlName="basic_term" 
+                class='center'>
+        </mat-form-field>
+    </form>
+
+    <div style="text-align:center; padding:0.5em">
+        <button 
+            mat-raised-button color="primary" 
+            class='lines-form' 
+            style="margin:auto"
+            (click)="this.process_form(search_form.value)">
+                {{'search.search' | translate}}
+        </button>
+    </div>
+
+    <mat-expansion-panel [expanded]="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{'search.advanced_search' | translate}}
+            </mat-panel-title>
+            <!-- <mat-panel-description>                
+            </mat-panel-description> -->
+        </mat-expansion-panel-header>
+
+        <div style="text-align:center; padding-bottom:0.5em">
+
+            <mat-button-toggle-group multiple>
+                <mat-button-toggle [checked]='true' (click)="this.search_in['specimens'] = !this.search_in['specimens']">
+                    Specimens
+                </mat-button-toggle>
+                <mat-button-toggle [checked]='true' (click)="this.search_in['taxa'] = !this.search_in['taxa']">
+                    Taxa
+                </mat-button-toggle>
+                <mat-button-toggle [checked]='true' (click)="this.search_in['multimedia'] = !this.search_in['multimedia']">
+                    Multimedia
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <div style="text-align:center; padding-bottom:0.5em">
+            <mat-button-toggle-group style="margin:auto" [(ngModel)]="operator">
+                <mat-button-toggle value="OR">{{'search.or' | translate}}</mat-button-toggle>
+                <mat-button-toggle value="AND">{{'search.and' | translate}}</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <form [formGroup]="search_form">
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ label : 'search.scientific_name', control_name : 'scientific_name'}">
+            </ng-container>
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ label : 'search.common_name', control_name : 'common_name'}">
+            </ng-container>
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.family', 
+                    control_name : 'family'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.genus', 
+                    control_name : 'genus'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.epithet', 
+                    control_name : 'epithet'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.registration_number', 
+                    control_name : 'registration_number'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.source', 
+                    control_name : 'source'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.collection_name', 
+                    control_name : 'collection_name'}">
+            </ng-container>
+            
+            <ng-container 
+                *ngIf="this.search_in['multimedia']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.license', 
+                    control_name : 'license'}">
+            </ng-container>
+
+            <!-- Two drop downs here -->
+
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.locality', 
+                    control_name : 'locality'}">
+            </ng-container>
+            
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.phase_stage', 
+                    control_name : 'phase_stage'}">
+            </ng-container>
+            
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.sex', 
+                    control_name : 'sex'}">
+            </ng-container>
+            
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.collector', 
+                    control_name : 'collector'}">
+            </ng-container>         
+
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.collector_field_number', 
+                    control_name : 'collector_field_number'}">
+            </ng-container>
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.kingdom', 
+                    control_name : 'kingdom'}">
+            </ng-container>
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.phylum', 
+                    control_name : 'phylum'}">
+            </ng-container>
+            
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.class', 
+                    control_name : 'class'}">
+            </ng-container>             
+
+            <ng-container 
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.order', 
+                    control_name : 'order'}">
+            </ng-container>    
+
+            <ng-container 
+                *ngIf="this.search_in['taxa']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.subgenus', 
+                    control_name : 'subgenus'}">
+            </ng-container>          
+
+            <ng-container 
+                *ngIf="this.search_in['taxa']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.infraspecific_name', 
+                    control_name : 'infraspecific_name'}">
+            </ng-container>   
+
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.old_barcodes', 
+                    control_name : 'old_barcodes'}">
+            </ng-container>              
+
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.chronostratigraphy', 
+                    control_name : 'chronostratigraphy'}">
+            </ng-container>                
+
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.biostratigraphy', 
+                    control_name : 'biostratigraphy'}">
+            </ng-container>  
+            
+            <ng-container 
+                *ngIf="this.search_in['specimens']"
+                [ngTemplateOutlet]='search_form_field' 
+                [ngTemplateOutletContext]="{ 
+                    label : 'search.lithostratigraphy', 
+                    control_name : 'lithostratigraphy'}">
+            </ng-container>              
+
+        </form>
+
+    </mat-expansion-panel>
+    <div style="padding:1em"></div>
+
+</ng-template>

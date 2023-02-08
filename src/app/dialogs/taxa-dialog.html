@@ -1,0 +1,88 @@
+<!-- This dialog is used to change system settings. It receives an oscc_settings object called data,
+  which can be changed using the toggles defined below. -->
+
+<!-- Template for a table row -->
+<ng-template #table_row let-title="title" let-data="data">  
+  <tr>
+    <td>
+      {{ title }}
+    </td>          
+    <td>
+      {{ data }}
+    </td>
+  </tr>
+</ng-template>
+
+<div class="dialog-content" mat-dialog-content>
+  <!-- <br> -->
+    
+    <h2>Taxa</h2>
+
+    <p style="font-size:1.5em">Common names</p>
+
+    <p style="font-size:1.5em">Synonyms</p>
+
+    <p style="font-size:1.5em">Descriptions</p>
+
+    <p style="font-size:1.5em">Classifications</p>
+
+    <b>{{ data.item.sourceSystem.name }}</b>
+
+    <table>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Kingdom', 
+          data: data.item.defaultClassification.kingdom
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+      context:{
+        title: 'Phylum', 
+        data: data.item.defaultClassification.phylum
+      }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Class', 
+          data: data.item.defaultClassification.className
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Order', 
+          data: data.item.defaultClassification.order
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Family', 
+          data: data.item.defaultClassification.family
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Genus', 
+          data: data.item.defaultClassification.genus
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Specific name', 
+          data: data.item.defaultClassification.specificEpithet
+        }">
+      </ng-container>
+      <ng-container *ngTemplateOutlet="table_row; 
+        context:{
+          title: 'Infraspecific name', 
+          data: data.item.defaultClassification.infraspecificEpithet
+        }">
+      </ng-container>
+    </table>
+
+
+    <p style="font-size:1.5em">Specimens</p>
+
+    <p style="font-size:1.5em">Literature</p>
+
+</div>
+  

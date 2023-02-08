@@ -1,0 +1,95 @@
+<!-- This dialog is used to change system settings. It receives an oscc_settings object called data,
+  which can be changed using the toggles defined below. -->
+<div class="dialog-content" mat-dialog-content>
+  <!-- <br> -->
+    
+  <h2>Multimedia item</h2>
+
+  <hr>
+  <div>
+    <a href="{{ data.item.serviceAccessPoints[0].accessUri }}" target="_blank">
+      <img src="{{ data.item.serviceAccessPoints[0].accessUri }}" width="50%" height="auto">
+    </a>
+  </div>
+  <p>
+    <a href="{{ data.item.serviceAccessPoints[0].accessUri }}" target="_blank">Show full picture</a>
+  </p>
+
+  <hr>
+
+  <table>
+    <tr>
+      <td>
+          Registration number
+      </td>          
+      <td>
+          {{ data.item.sourceSystemId }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          Scientific name
+      </td>          
+      <td>
+        {{ data.item.identifications[0].scientificName.fullScientificName }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          Source
+      </td>          
+      <td>
+        {{ data.item.sourceInstitutionID }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          License
+      </td>          
+      <td>
+        {{ data.item.license }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          Institution
+      </td>          
+      <td>
+        {{ data.item.owner }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          Collection name
+      </td>          
+      <td>
+        {{ data.item.collectionType }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+          Locality
+      </td>          
+      <td>
+        {{ data.item.gatheringEvents[0].country }}, {{ data.item.gatheringEvents[0].sublocality }} 
+      </td>
+    </tr>     
+    <tr>
+      <td>
+          Collection start data
+      </td>          
+      <td>
+        ???
+      </td>
+    </tr> 
+    <tr>
+      <td>
+          Phase or stage
+      </td>          
+      <td>
+        {{ data.item.phasesOrStages[0] }}
+      </td>
+    </tr>    
+  </table>
+
+</div>

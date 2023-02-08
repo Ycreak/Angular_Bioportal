@@ -1,0 +1,69 @@
+{
+    "navbar" : {
+        "explore_highlights": "EXPLORE HIGHLIGHTS",
+        "about": "ABOUT"
+    },
+    "search" : {
+        "basic_term" : "e.g. species name of locality",
+        "search" : "Search",
+        "advanced_search" : "Advanced Search",
+        "search_results" : "Search results",
+        "scientific_name" : "Scientific name",
+        "common_name" : "Common name",
+        "family" : "Family",
+        "genus" : "Genus",
+        "epithet" : "Epithet",
+        "registration_number" : "Registration number",
+        "source" : "Source",
+        "collection_name" : "Collection name",
+        "type_status" : "Type status",
+        "type_material" : "Type material",
+        "locality" : "Locality",
+        "phase_stage" : "Phase or stage",
+        "sex" : "Sex",
+        "collector" : "Collector",
+        "collector_field_number" : "Collectors field number",
+        "license" : "License",
+        "kingdom" : "Kingdom",
+        "phylum" : "Phylum",
+        "class" : "Class",
+        "order" : "Order",
+        "subgenus" : "Subgenus",
+        "infraspecific_name" : "Infraspecific name",
+        "old_barcodes" : "Old barcodes",
+        "chronostratigraphy" : "Chronostratigraphy",      
+        "lithostratigraphy" : "Lithostratigraphy",   
+        "biostratigraphy" : "Biostratigraphy", 
+
+        "and" : "AND", 
+        "or" : "OR" 
+
+
+    },
+    "taxa" : {
+        "matching" : "matching scientific or common name",
+        "species_names" : "Species names"
+    },
+
+    "about" : {
+        "about" : "About Bioportal",
+        "whatsnew" : "What's new",
+        "dashboard" : "Dashboard",
+        "downloads" : "Downloads",
+        "api" : "API",
+        "contact" : "Contact"
+    },
+
+    "operators" : {
+        "equals" : "equals",
+        "not_equals" : "not equals",
+        "contains" : "contains",
+        "not_contains" : "not contains",
+        "starts_with" : "starts with",
+        "not_starts_with" : "not starts with",
+        "matches" : "matches",
+        "not_matches" : "not matches",
+        "in" : "in",
+        "not_in" : "not in"
+    }
+}

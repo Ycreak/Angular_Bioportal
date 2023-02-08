@@ -1,0 +1,66 @@
+{
+    "navbar": {
+        "explore_highlights": "BIJZONDERE COLLECTIES",
+        "about": "OVER"
+    },
+    "search" : {
+        "basic_term" : "bijv. soortnaam of vindplaats",
+        "search" : "Zoeken",
+        "advanced_search" : "Uitgebreid zoeken",
+        "search_results" : "Zoek resultaten",
+        "scientific_name" : "Wetenschappelijke naam",
+        "common_name" : "Populaire naam",
+        "family" : "Familie",
+        "genus" : "Geslacht",
+        "epithet" : "Epitheton",
+        "registration_number" : "Registratienummer",
+        "source" : "Bron",
+        "collection_name" : "Collectienaam",
+        "type_status" : "Typestatus",
+        "type_material" : "Onderdeel of materiaaltype",
+        "locality" : "Plaats of streek",
+        "phase_stage" : "Levensfase",
+        "sex" : "Sexe",
+        "collector" : "Verzamelaar",
+        "collector_field_number" : "Veldnummer verzamelaar",
+        "license" : "Licentie",
+        "kingdom" : "Rijk",
+        "phylum" : "Afdeling of stam",
+        "class" : "Klasse",
+        "order" : "Orde",
+        "subgenus" : "Subgenus",
+        "infraspecific_name" : "Ondersoort",
+        "old_barcodes" : "Oude barcodes",
+        "chronostratigraphy" : "Chronostratigrafie",      
+        "lithostratigraphy" : "LIthostratigrafie",   
+        "biostratigraphy" : "Biostratigrafie", 
+
+        "and" : "EN", 
+        "or" : "OF"         
+    },
+    "taxa" : {
+        "matching" : "matching wetenschappelijke of populaire naam",
+        "species_names" : "Soortnamen"
+    },
+    "about" : {
+        "about" : "Over Bioportal",
+        "whatsnew" : "Wat is er nieuw",
+        "dashboard" : "Dashboard",
+        "downloads" : "Downloads",
+        "api" : "API",
+        "contact" : "Contact"
+    },
+    "operators" : {
+        "equals" : "gelijk",
+        "not_equals" : "niet gelijk",
+        "contains" : "bevat",
+        "not_contains" : "bevat niet",
+        "starts_with" : "start met",
+        "not_starts_with" : "start niet met",
+        "matches" : "gelijkig",
+        "not_matches" : "niet gelijkig",
+        "in" : "in",
+        "not_in" : "niet in"
+    }    
+
+}
