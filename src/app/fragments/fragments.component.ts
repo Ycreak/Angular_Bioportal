@@ -68,6 +68,9 @@ export class FragmentsComponent implements OnInit {
     multimedia : true,
   }
 
+  dutch_enabled : boolean = false;
+  english_enabled : boolean = true;
+
   operator?: string = 'OR';
   language?: string = 'en';
 
@@ -641,4 +644,19 @@ export class FragmentsComponent implements OnInit {
       'multimedia' : {},
     }
   }
+
+  protected toggle_language(): void {
+    this.dutch_enabled = !this.dutch_enabled;
+    this.english_enabled = !this.english_enabled;
+
+    if ( this.english_enabled ){
+      this.change_language('en')
+    }
+    else{
+      this.change_language('nl')
+    }
+
+  }
+
+
 }

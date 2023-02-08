@@ -12,7 +12,7 @@
 
      <span class="spacer"></span>
         
-     <button mat-stroked-button 
+     <!-- <button mat-stroked-button 
             class="navbar" style="margin: 0.2em;"
             (click)="this.change_language('nl')">
                 NL
@@ -22,16 +22,17 @@
         class="navbar" style="margin: 0.2em;"
         (click)="this.change_language('en')">
             EN
-    </button>
+    </button> -->
 
-
-          
-     <button mat-stroked-button 
+     <!-- <button mat-stroked-button 
             class="navbar" style="margin: 0.2em;"
             (click)="this.test('0')">
                 TEST
-        </button>
+        </button> -->
         
+
+
+
     <button mat-stroked-button 
         class="navbar" style="margin: 0.2em;"
         [matMenuTriggerFor]="highlights">
@@ -45,6 +46,38 @@
             {{'navbar.about' | translate}}
 
     </button>
+
+    <button mat-stroked-button 
+        *ngIf="!this.english_enabled; else english_disabled"
+        class="navbar button-margin" 
+        (click)="this.toggle_language()">
+            EN
+    </button>
+
+    <ng-template #english_disabled>
+        <button mat-flat-button 
+        class="button-margin"
+        color="accent"
+        (click)="this.toggle_language()">
+            EN
+        </button>    
+    </ng-template>
+
+    <button mat-stroked-button 
+        *ngIf="!this.dutch_enabled; else dutch_disabled"
+        class="navbar button-margin" 
+        (click)="this.toggle_language()">
+            NL
+    </button>
+
+    <ng-template #dutch_disabled>
+        <button mat-flat-button 
+        class="button-margin"
+        color="accent"
+        (click)="this.toggle_language()">
+            NL
+        </button>    
+    </ng-template>
 
 
 </mat-toolbar>
